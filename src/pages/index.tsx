@@ -1,7 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
 
 import type { NextPage } from "next";
+
+import LoginButton from "@/components/block/LoginButton";
 
 const Home: NextPage = () => {
   return (
@@ -12,6 +13,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>stream</h1>
+      <LoginButton />
     </div>
   );
 };
