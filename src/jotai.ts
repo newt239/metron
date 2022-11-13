@@ -2,7 +2,7 @@ import { atom } from "jotai";
 
 export const tokenAtom = atom<null | string>(null);
 
-type PropfileProps = {
+export type ProfileProps = {
   id: string;
   display_name: string;
   images: { url: string }[];
@@ -10,4 +10,4 @@ type PropfileProps = {
   type: "user";
 };
 
-export const profileAtom = atom<null | PropfileProps>(null);
+export const profileAtom = atom<null | ProfileProps>(null);

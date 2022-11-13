@@ -6,6 +6,7 @@
     "prettier"
   ],
   "rules": {
+    "import/prefer-default-export": "off",
     "react-hooks/exhaustive-deps": "off",
     "import/order": [
       "error",
@@ -31,9 +32,7 @@
             "position": "before"
           }
         ],
-        "pathGroupsExcludedImportTypes": [
-          "builtin"
-        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
         "alphabetize": {
           "order": "asc"
         },
