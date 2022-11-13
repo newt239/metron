@@ -1,8 +1,16 @@
 import { Button } from "@chakra-ui/react";
-import Head from "next/head";
+import axios from "axios";
+import { useSetAtom } from "jotai";
+import Router from "next/router";
 
 import type { NextPage } from "next";
+
+import { tokenAtom, profileAtom } from "@/jotai";
+
 const LoginButton: NextPage = () => {
+  const setToken = useSetAtom(tokenAtom);
+  const setProfile = useSetAtom(profileAtom);
+
   const login = () => {
     const url = `https://accounts.spotify.com/authorize?client_id=${
       process.env.NEXT_PUBLIC_API_SPOTIFY_CLIENT_ID
@@ -16,6 +24,7 @@ const LoginButton: NextPage = () => {
       "Login with Spotify",
       "width=600,height=800"
     );
+
     const checkAuth = window.setInterval(() => {
       if (popup) {
         try {
@@ -25,6 +34,9 @@ const LoginButton: NextPage = () => {
           }
           if (popup.location.href) {
             console.log(popup.location.href);
+            const token = popup.location.href.split(/\=|\&/)[1];
+            setToken(token);
+            getUserProfile(token);
             popup.close();
             clearInterval(checkAuth);
           }
@@ -36,6 +48,20 @@ const LoginButton: NextPage = () => {
         }
       }
     }, 500);
+
+    const getUserProfile = (token: string) => {
+      axios
+        .get("https://api.spotify.com/v1/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setProfile(res.data);
+          Router.push(`/${res.data.id}/`);
+        });
+    };
   };
   return (
     <Button onClick={login} colorScheme="green">
