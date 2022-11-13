@@ -1,18 +1,26 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
+import App from "next/app";
+import { SWRConfig } from "swr";
 
 import type { AppProps } from "next/app";
 
-import Layout from "@/components/layout";
 import theme from "@/theme";
-const App = ({ Component, pageProps, router }: AppProps) => {
+
+const MyApp = ({ Component, pageProps, router }: AppProps) => {
   return (
-    <ChakraProvider theme={theme}>
-      <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
-        <Component key={router.asPath} {...pageProps} />
-      </AnimatePresence>
-    </ChakraProvider>
+    <SWRConfig value={{ revalidateOnFocus: false }}>
+      <ChakraProvider theme={theme}>
+        <AnimatePresence
+          mode="wait"
+          onExitComplete={() => window.scrollTo(0, 0)}
+        >
+          <Component key={router.asPath} {...pageProps} />
+        </AnimatePresence>
+      </ChakraProvider>
+    </SWRConfig>
   );
 };
 
-export default App;
+MyApp.getInitialProps = async () => ({ pageProps: {} });
+export default MyApp;

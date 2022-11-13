@@ -34,8 +34,6 @@ const AudioInfo: NextPage<{ id: string }> = ({ id }) => {
     `https://api.spotify.com/v1/audio-features/${id}`,
     fetcher
   );
-  if (!audio) return <div>error</div>;
-  if (error) return <div>error error</div>;
 
   const features = [
     ["loudness", "音量・音圧（db）の平均値"],
@@ -50,19 +48,25 @@ const AudioInfo: NextPage<{ id: string }> = ({ id }) => {
   return (
     <Box>
       <Heading as="h3">Audio Information</Heading>
-      <TableContainer my={2}>
-        <Table variant="simple">
-          <Tbody>
-            {features.map((feature) => (
-              <Tr key={feature[0]}>
-                <Th>{feature[0]}</Th>
-                <Td isNumeric>{audio[feature[0] as keyof AudioInfoProps]}</Td>
-                <Td>{feature[1]}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      {error ? (
+        <div>{error.message}</div>
+      ) : !audio ? (
+        <div>Loading...</div>
+      ) : (
+        <TableContainer my={2}>
+          <Table variant="simple">
+            <Tbody>
+              {features.map((feature) => (
+                <Tr key={feature[0]}>
+                  <Th>{feature[0]}</Th>
+                  <Td isNumeric>{audio[feature[0] as keyof AudioInfoProps]}</Td>
+                  <Td>{feature[1]}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
     </Box>
   );
 };

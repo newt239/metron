@@ -17,7 +17,6 @@ const Track: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const token = useAtomValue(tokenAtom);
-
   const fetcher = (url: string) =>
     axios
       .get(url, {
@@ -32,12 +31,13 @@ const Track: NextPage = () => {
     `https://api.spotify.com/v1/tracks/${id}`,
     fetcher
   );
-  if (!track) return <div>error</div>;
-  if (error) return <div>error error</div>;
+
   return (
     <Layout>
       <Container maxW="1200px" sx={{ py: "5rem" }}>
-        {track ? (
+        {error ? (
+          <div>{error.message}</div>
+        ) : track ? (
           <>
             <TrackInfo track={track} />
             <AudioInfo id={track.id} />
@@ -47,7 +47,7 @@ const Track: NextPage = () => {
             />
           </>
         ) : (
-          <div>loading</div>
+          <div>Loading...</div>
         )}
       </Container>
     </Layout>

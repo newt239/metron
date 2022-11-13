@@ -6,26 +6,6 @@ export interface ProfileProps {
   type: "user";
 }
 
-export interface TopTracksProps {
-  id: string;
-  name: string;
-  external_urls: { spotify: string };
-  preview_url: string;
-  type: "track";
-  album: Album;
-}
-[];
-
-export interface JapanHitsProps {
-  id: string;
-  name: string;
-  external_urls: {
-    spotify: string;
-  };
-  album: Album;
-}
-[];
-
 export interface TrackProps {
   album: Album;
   artists: DetailedArtist[];

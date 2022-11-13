@@ -23,33 +23,36 @@ const Profile: NextPage = () => {
         console.log(res.data);
         return res.data;
       });
-  const { data: profile, error: getProfileError } = useSWR<ProfileProps, Error>(
+  const { data: profile, error } = useSWR<ProfileProps, Error>(
     "https://api.spotify.com/v1/me",
     fetcher
   );
 
+  if (error) {
+    return (
+      <div>
+        An error has occurred. Please login again.{" "}
+        <Link href="/">back to top</Link>
+      </div>
+    );
+  }
+  if (!profile) return <div>3Loading...</div>;
+
   return (
     <Box p={3}>
-      {getProfileError ? (
-        <div>
-          An error has occurred. Please login again.{" "}
-          <Link href="/">back to top</Link>
-        </div>
-      ) : (
-        <Stack direction="row" alignItems="center">
-          <Avatar src={profile ? profile.images[0].url : undefined} size="xl" />
-          <Stack direction="column">
-            <Box>
-              {!!profile ? (
-                <Heading as="h2">{profile.display_name}</Heading>
-              ) : (
-                <Skeleton />
-              )}
-            </Box>
-            <Box>{!!profile ? <Text>{profile.id}</Text> : <Skeleton />}</Box>
-          </Stack>
+      <Stack direction="row" alignItems="center">
+        <Avatar src={profile ? profile.images[0].url : undefined} size="xl" />
+        <Stack direction="column">
+          <Box>
+            {!!profile ? (
+              <Heading as="h2">{profile.display_name}</Heading>
+            ) : (
+              <Skeleton />
+            )}
+          </Box>
+          <Box>{!!profile ? <Text>{profile.id}</Text> : <Skeleton />}</Box>
         </Stack>
-      )}
+      </Stack>
     </Box>
   );
 };

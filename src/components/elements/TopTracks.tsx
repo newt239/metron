@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Image } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Image } from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import useSWR from "swr";
 import type { NextPage } from "next";
 
 import { tokenAtom } from "@/jotai";
-import { TopTracksProps } from "@/types";
+import { TrackProps } from "@/types";
 
 const TopTracks: NextPage = () => {
   const token = useAtomValue(tokenAtom);
@@ -24,11 +24,12 @@ const TopTracks: NextPage = () => {
         return res.data.items;
       });
   const { data: topTracks, error: getTopTracksError } = useSWR<
-    TopTracksProps[],
+    TrackProps[],
     Error
   >("https://api.spotify.com/v1/me/top/tracks", fetcher);
-  if (!topTracks) return <div>error</div>;
-  if (getTopTracksError) return <div>error error</div>;
+
+  if (getTopTracksError) return <div>error</div>;
+  if (!topTracks) return <div>5Loading...</div>;
 
   return (
     <div>
@@ -58,6 +59,9 @@ const TopTracks: NextPage = () => {
                   {track.name}
                 </Link>
               </Heading>
+              <Text>
+                {track.artists.map((artist) => artist.name).join(", ")}
+              </Text>
             </Box>
           </Flex>
         ))}
