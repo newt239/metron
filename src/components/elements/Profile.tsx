@@ -29,7 +29,7 @@ const Profile: NextPage = () => {
   );
 
   return (
-    <div>
+    <Box p={3}>
       {getProfileError ? (
         <div>
           An error has occurred. Please login again.{" "}
@@ -50,7 +50,7 @@ const Profile: NextPage = () => {
           </Stack>
         </Stack>
       )}
-    </div>
+    </Box>
   );
 };
 

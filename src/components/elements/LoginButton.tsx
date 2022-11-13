@@ -63,7 +63,7 @@ const LoginButton: NextPage = () => {
   };
   return (
     <Button onClick={login} colorScheme="green">
-      sign in with spotify
+      Sign in with Spotify
     </Button>
   );
 };

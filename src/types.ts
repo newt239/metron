@@ -20,3 +20,18 @@ export type TopTracksProps = {
     }[];
   };
 }[];
+
+export type JapanHitsProps = {
+  id: string;
+  name: string;
+  external_urls: {
+    spotify: string;
+  };
+  album: {
+    images: {
+      url: string;
+      width: number;
+      height: number;
+    }[];
+  };
+}[];

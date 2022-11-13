@@ -1,12 +1,4 @@
-import {
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  Image,
-  Link,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Link } from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
 import useSWR from "swr";
