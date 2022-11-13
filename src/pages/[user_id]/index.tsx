@@ -1,4 +1,4 @@
-import { Avatar, Box, Heading, Stack, Text } from "@chakra-ui/react";
+import { Avatar, Box, Heading, Skeleton, Stack, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
 import Link from "next/link";
@@ -22,32 +22,33 @@ const Home: NextPage = () => {
         },
       })
       .then((res) => res.data);
-  const { data, error } = useSWR<ProfileProps, Error>(
+  const { data: profile, error: getProfileError } = useSWR<ProfileProps, Error>(
     "https://api.spotify.com/v1/me",
     fetcher
   );
-  if (error)
-    return (
-      <div>
-        An error has occurred. Please login again.{" "}
-        <Link href="/">back to top</Link>
-      </div>
-    );
-  if (!data) return <div>Loading...</div>;
 
   return (
     <div>
-      <Stack direction="row" alignItems="center">
-        <Avatar src={data.images[0].url} />
-        <Stack direction="column">
-          <Box>
-            <Heading as="h2">{data.display_name}</Heading>
-          </Box>
-          <Box>
-            <Text>{data.id}</Text>
-          </Box>
+      {getProfileError ? (
+        <div>
+          An error has occurred. Please login again.{" "}
+          <Link href="/">back to top</Link>
+        </div>
+      ) : (
+        <Stack direction="row" alignItems="center">
+          <Avatar src={profile ? profile.images[0].url : undefined} size="xl" />
+          <Stack direction="column">
+            <Box>
+              {!!profile ? (
+                <Heading as="h2">{profile.display_name}</Heading>
+              ) : (
+                <Skeleton />
+              )}
+            </Box>
+            <Box>{!!profile ? <Text>{profile.id}</Text> : <Skeleton />}</Box>
+          </Stack>
         </Stack>
-      </Stack>
+      )}
     </div>
   );
 };
