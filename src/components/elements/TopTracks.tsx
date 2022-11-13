@@ -1,6 +1,7 @@
-import { Box, Flex, Heading, Image, Link } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image } from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
+import Link from "next/link";
 import useSWR from "swr";
 
 import type { NextPage } from "next";
@@ -23,7 +24,7 @@ const TopTracks: NextPage = () => {
         return res.data.items;
       });
   const { data: topTracks, error: getTopTracksError } = useSWR<
-    TopTracksProps,
+    TopTracksProps[],
     Error
   >("https://api.spotify.com/v1/me/top/tracks", fetcher);
   if (!topTracks) return <div>error</div>;
@@ -53,9 +54,7 @@ const TopTracks: NextPage = () => {
             </Box>
             <Box width="min(150px, 50%)" flexGrow={1}>
               <Heading as="h4" size="md">
-                <Link href={track.external_urls.spotify} target="_blank">
-                  {track.name}
-                </Link>
+                <Link href={`/track/${track.id}`}>{track.name}</Link>
               </Heading>
             </Box>
           </Flex>
