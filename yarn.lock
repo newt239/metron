@@ -1989,10 +1989,10 @@ form-data@^4.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-framer-motion@^7.6.3:
-  version "7.6.3"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-7.6.3.tgz#ab15a9c8ca46381bf6b12d8e8a1a4b133c1eaf9a"
-  integrity sha512-98YezJpKI2z5PKcao59xmxWyU/ZD78LVK6dfhSeal/5cD/KQ/FloAZ0j00qzp0V6F+Me5rwnSgwiO3i+2G4RXg==
+framer-motion@^7.6.6:
+  version "7.6.6"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-7.6.6.tgz#50e0d3bc29b899a79dbafb6085e398fb53a2f04a"
+  integrity sha512-7ti5mEzhTRBFCMlKs8Zxu9dWtVattpj2jPCNc4jaz4d7bDFekClALaBzmi1pGOKzsOWJsKMeV5ckIkD1DLI9lw==
   dependencies:
     "@motionone/dom" "10.13.1"
     framesync "6.1.2"
