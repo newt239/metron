@@ -5,11 +5,10 @@ import Router from "next/router";
 
 import type { NextPage } from "next";
 
-import { tokenAtom, profileAtom } from "@/jotai";
+import { tokenAtom } from "@/jotai";
 
 const LoginButton: NextPage = () => {
   const setToken = useSetAtom(tokenAtom);
-  const setProfile = useSetAtom(profileAtom);
 
   const login = () => {
     const url = `https://accounts.spotify.com/authorize?client_id=${
@@ -58,8 +57,7 @@ const LoginButton: NextPage = () => {
         })
         .then((res) => {
           console.log(res);
-          setProfile(res.data);
-          Router.push(`/${res.data.id}/`);
+          Router.push(`/me`);
         });
     };
   };

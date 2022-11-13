@@ -2,26 +2,27 @@ import { Avatar, Box, Heading, Skeleton, Stack, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
 import Link from "next/link";
-import { useRouter } from "next/router";
-// eslint-disable-next-line import/named
-import useSWR, { Fetcher } from "swr";
+import useSWR from "swr";
 
 import type { NextPage } from "next";
 
-import { ProfileProps, tokenAtom } from "@/jotai";
-const Home: NextPage = () => {
-  const router = useRouter();
-  const { user_id } = router.query;
+import { tokenAtom } from "@/jotai";
+import { ProfileProps } from "@/types";
+
+const Profile: NextPage = () => {
   const token = useAtomValue(tokenAtom);
 
-  const fetcher: Fetcher<ProfileProps, string> = (url: string) =>
+  const fetcher = (url: string) =>
     axios
       .get(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => res.data);
+      .then((res) => {
+        console.log(res.data);
+        return res.data;
+      });
   const { data: profile, error: getProfileError } = useSWR<ProfileProps, Error>(
     "https://api.spotify.com/v1/me",
     fetcher
@@ -53,4 +54,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Profile;
