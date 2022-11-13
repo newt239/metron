@@ -56,6 +56,7 @@ const TopTracks: NextPage = () => {
                 width="100%"
                 height="100%"
                 borderRadius={15}
+                filter="drop-shadow(2px 4px 6px black)"
               />
             </Box>
             <Box width="min(150px, 50%)" flexGrow={1}>

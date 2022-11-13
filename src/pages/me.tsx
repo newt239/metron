@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 
+import Profile from "@/components/Profile";
 import TopTracks from "@/components/TopTracks";
-import Profile from "@/components/block/Profile";
 
 const Me: NextPage = () => {
   return (
