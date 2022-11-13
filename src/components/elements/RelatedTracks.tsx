@@ -1,15 +1,34 @@
-import { Box, Flex, Heading, Image } from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Text,
+  Image,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Tr,
+} from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
+import moment from "moment";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import useSWR from "swr";
 
 import type { NextPage } from "next";
 
 import { tokenAtom } from "@/jotai";
-import { TopTracksProps } from "@/types";
+import { TrackProps } from "@/types";
 
-const TopTracks: NextPage = () => {
+const RelatedTracks: NextPage<{ id: string; artists: string[] }> = ({
+  id,
+  artists,
+}) => {
   const token = useAtomValue(tokenAtom);
 
   const fetcher = (url: string) =>
@@ -20,21 +39,22 @@ const TopTracks: NextPage = () => {
         },
       })
       .then((res) => {
-        console.log(res.data.items);
-        return res.data.items;
+        console.log(res.data.tracks);
+        return res.data.tracks;
       });
-  const { data: topTracks, error: getTopTracksError } = useSWR<
-    TopTracksProps[],
-    Error
-  >("https://api.spotify.com/v1/me/top/tracks", fetcher);
-  if (!topTracks) return <div>error</div>;
-  if (getTopTracksError) return <div>error error</div>;
-
+  const { data: relatedTracks, error } = useSWR<TrackProps[], Error>(
+    `https://api.spotify.com/v1/recommendations?seed_tracks=${id}&seed_artists=${artists.join(
+      ","
+    )}`,
+    fetcher
+  );
+  if (!relatedTracks) return <div>error</div>;
+  if (error) return <div>error error</div>;
   return (
-    <div>
-      <Heading as="h2">Top Tracks</Heading>
+    <Box>
+      <Heading as="h3">Recommendation</Heading>
       <Flex flexWrap="wrap" p={3} gap={5}>
-        {topTracks.map((track) => (
+        {relatedTracks.map((track) => (
           <Flex
             key={track.id}
             direction="row"
@@ -58,14 +78,19 @@ const TopTracks: NextPage = () => {
                   {track.name}
                 </Link>
               </Heading>
+              <Text>{track.artists[0].name}</Text>
             </Box>
           </Flex>
         ))}
-        {topTracks.length % 3 >= 1 && <Flex width="max(30vw, 300px)" />}
-        {topTracks.length % 3 >= 2 && <Flex width="max(30vw, 300px)" />}
+        {relatedTracks.length % 3 >= 1 && (
+          <Flex width="max(30%, 300px)" gap={3} flexGrow={1} />
+        )}
+        {relatedTracks.length % 3 >= 2 && (
+          <Flex width="max(30%, 300px)" gap={3} flexGrow={1} />
+        )}
       </Flex>
-    </div>
+    </Box>
   );
 };
 
-export default TopTracks;
+export default RelatedTracks;

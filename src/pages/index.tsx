@@ -52,7 +52,7 @@ const Home: NextPage = () => {
             </Box>
             <Box textAlign="center">
               {token ? (
-                <Link href="/me">
+                <Link href="/me" scroll={false}>
                   <Button
                     variant="outline"
                     colorScheme="green"

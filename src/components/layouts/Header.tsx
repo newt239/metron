@@ -16,7 +16,7 @@ const Header: NextPage = () => {
       backgroundColor="rgba(33, 33, 33, 0.7)"
       zIndex={1000}
     >
-      <Link href="/">
+      <Link href="/" scroll={false}>
         <Container maxW={1200}>
           <Heading as="h1" cursor="pointer">
             stream
