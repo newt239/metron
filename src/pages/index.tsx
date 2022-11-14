@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import { useAtomValue } from "jotai";
 import Head from "next/head";
 import Link from "next/link";
@@ -50,7 +50,13 @@ const Home: NextPage = () => {
               </span>
               .
             </Box>
-            <Box textAlign="center">
+            <Flex
+              sx={{
+                justifyContent: "center",
+                textAlign: "center",
+                gap: 3,
+              }}
+            >
               {token ? (
                 <Link href="/me" scroll={false}>
                   <Button
@@ -65,7 +71,17 @@ const Home: NextPage = () => {
               ) : (
                 <LoginButton />
               )}
-            </Box>
+              <Link href="/search" scroll={false}>
+                <Button
+                  variant="outline"
+                  colorScheme="green"
+                  as="a"
+                  cursor="pointer"
+                >
+                  Search tracks
+                </Button>
+              </Link>
+            </Flex>
           </Box>
           <Box zIndex={-1}>
             <JapanHits />
