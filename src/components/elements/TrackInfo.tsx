@@ -5,6 +5,7 @@ import {
   Flex,
   Heading,
   Text,
+  Link,
   Image,
   Table,
   TableContainer,
@@ -14,6 +15,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import moment from "moment";
+import NextLink from "next/link";
 
 import type { NextPage } from "next";
 
@@ -33,7 +35,19 @@ const TrackInfo: NextPage<{ track: TrackProps }> = ({ track }) => {
         </Box>
         <Box>
           <Heading as="h2">{track.name}</Heading>
-          <Text>{track.artists.map((artist) => artist.name).join(", ")}</Text>
+          <Text>
+            {track.artists
+              .map<React.ReactNode>((artist) => (
+                <NextLink
+                  key={artist.id}
+                  href={`/artist/${artist.id}`}
+                  scroll={false}
+                >
+                  <Link>{artist.name}</Link>
+                </NextLink>
+              ))
+              .reduce((prev, curr) => [prev, ", ", curr])}
+          </Text>
           {track.preview_url && (
             <Box sx={{ mt: 3, textAlign: "center" }}>
               <audio

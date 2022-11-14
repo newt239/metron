@@ -50,6 +50,25 @@ export interface AudioInfoProps {
   valence: number;
 }
 
+export interface ArtistProps {
+  external_urls: ExternalUrls;
+  followers: Followers;
+  genres: string[];
+  href: string;
+  id: string;
+  images: ImagesEntity[];
+  name: string;
+  popularity: number;
+  type: string;
+  uri: string;
+}
+
+export interface ImagesEntity {
+  url: string;
+  height: number;
+  width: number;
+}
+
 export interface ExternalUrls {
   spotify: string;
 }

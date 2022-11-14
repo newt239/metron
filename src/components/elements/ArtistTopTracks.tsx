@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, Image, Link } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Link, Image } from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
 import NextLink from "next/link";
@@ -9,10 +9,7 @@ import type { NextPage } from "next";
 import { tokenAtom } from "@/jotai";
 import { TrackProps } from "@/types";
 
-const RelatedTracks: NextPage<{ id: string; artists: string[] }> = ({
-  id,
-  artists,
-}) => {
+const ArtistTopTracks: NextPage<{ id: string }> = ({ id }) => {
   const token = useAtomValue(tokenAtom);
 
   const fetcher = (url: string) =>
@@ -26,23 +23,21 @@ const RelatedTracks: NextPage<{ id: string; artists: string[] }> = ({
         console.log(res.data.tracks);
         return res.data.tracks;
       });
-  const { data: relatedTracks, error } = useSWR<TrackProps[], Error>(
-    `https://api.spotify.com/v1/recommendations?seed_tracks=${id}&seed_artists=${artists.join(
-      ","
-    )}`,
+  const { data: topTracks, error } = useSWR<TrackProps[], Error>(
+    `https://api.spotify.com/v1/artists/${id}/top-tracks?market=JP`,
     fetcher
   );
 
   return (
-    <Box>
-      <Heading as="h3">Recommendation</Heading>
+    <div>
+      <Heading as="h2">Top Tracks</Heading>
       {error ? (
         <div>{error.message}</div>
-      ) : !relatedTracks ? (
+      ) : !topTracks ? (
         <div>Loading...</div>
       ) : (
         <Flex flexWrap="wrap" p={3} gap={5}>
-          {relatedTracks.map((track) => (
+          {topTracks.map((track) => (
             <Flex
               key={track.id}
               direction="row"
@@ -82,16 +77,12 @@ const RelatedTracks: NextPage<{ id: string; artists: string[] }> = ({
               </Box>
             </Flex>
           ))}
-          {relatedTracks.length % 3 >= 1 && (
-            <Flex width="max(30%, 300px)" gap={3} flexGrow={1} />
-          )}
-          {relatedTracks.length % 3 >= 2 && (
-            <Flex width="max(30%, 300px)" gap={3} flexGrow={1} />
-          )}
+          <Flex width="max(30%, 300px)" />
+          <Flex width="max(30%, 300px)" />
         </Flex>
       )}
-    </Box>
+    </div>
   );
 };
 
-export default RelatedTracks;
+export default ArtistTopTracks;

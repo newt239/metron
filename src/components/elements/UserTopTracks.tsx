@@ -1,7 +1,7 @@
-import { Box, Flex, Heading, Text, Image } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Link, Image } from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
-import Link from "next/link";
+import NextLink from "next/link";
 import useSWR from "swr";
 
 import type { NextPage } from "next";
@@ -9,7 +9,7 @@ import type { NextPage } from "next";
 import { tokenAtom } from "@/jotai";
 import { TrackProps } from "@/types";
 
-const TopTracks: NextPage = () => {
+const UserTopTracks: NextPage = () => {
   const token = useAtomValue(tokenAtom);
 
   const fetcher = (url: string) =>
@@ -23,13 +23,13 @@ const TopTracks: NextPage = () => {
         console.log(res.data.items);
         return res.data.items;
       });
-  const { data: topTracks, error: getTopTracksError } = useSWR<
-    TrackProps[],
-    Error
-  >("https://api.spotify.com/v1/me/top/tracks", fetcher);
+  const { data: topTracks, error } = useSWR<TrackProps[], Error>(
+    "https://api.spotify.com/v1/me/top/tracks",
+    fetcher
+  );
 
-  if (getTopTracksError) return <div>error</div>;
-  if (!topTracks) return <div>5Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+  if (!topTracks) return <div>Loading...</div>;
 
   return (
     <div>
@@ -55,21 +55,31 @@ const TopTracks: NextPage = () => {
             </Box>
             <Box width="min(150px, 50%)" flexGrow={1}>
               <Heading as="h4" size="md">
-                <Link href={`/track/${track.id}`} scroll={false}>
-                  {track.name}
-                </Link>
+                <NextLink href={`/track/${track.id}`} scroll={false}>
+                  <Link>{track.name}</Link>
+                </NextLink>
               </Heading>
               <Text>
-                {track.artists.map((artist) => artist.name).join(", ")}
+                {track.artists
+                  .map<React.ReactNode>((artist) => (
+                    <NextLink
+                      key={artist.id}
+                      href={`/artist/${artist.id}`}
+                      scroll={false}
+                    >
+                      <Link>{artist.name}</Link>
+                    </NextLink>
+                  ))
+                  .reduce((prev, curr) => [prev, ", ", curr])}
               </Text>
             </Box>
           </Flex>
         ))}
-        {topTracks.length % 3 >= 1 && <Flex width="max(30vw, 300px)" />}
-        {topTracks.length % 3 >= 2 && <Flex width="max(30vw, 300px)" />}
+        <Flex width="max(30%, 300px)" />
+        <Flex width="max(30%, 300px)" />
       </Flex>
     </div>
   );
 };
 
-export default TopTracks;
+export default UserTopTracks;
