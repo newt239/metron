@@ -1,12 +1,23 @@
 import { useState } from "react";
 
-import { Container, Input, ListItem, UnorderedList } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Text,
+  Input,
+  Link,
+  Image,
+} from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
 import Head from "next/head";
+import NextLink from "next/link";
 
 import type { NextPage } from "next";
 
+import MusicPreview from "@/components/elements/MusicPreview";
 import Layout from "@/components/layout";
 import { tokenAtom } from "@/jotai";
 import { TrackProps } from "@/types";
@@ -40,16 +51,100 @@ const Search: NextPage = () => {
       </Head>
       <Layout>
         <Container maxW="1200px" sx={{ py: "5rem" }}>
+          <Heading as="h2">Search tracks</Heading>
           <Input
             placeholder="夜に駆ける"
             value={text}
             onChange={searchTracks}
           />
-          <UnorderedList>
+          <Flex
+            sx={{
+              flexDirection: "column",
+              maxWidth: 500,
+            }}
+          >
             {trackList.map((track) => {
-              return <ListItem key={track.id}>{track.name}</ListItem>;
+              return (
+                <Flex
+                  key={track.id}
+                  sx={{
+                    flexDirection: "row",
+                    gap: 3,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "min(150px, 50%)",
+                      position: "relative",
+                      flexGrow: 1,
+                    }}
+                  >
+                    <Image
+                      src={track.album.images[0].url}
+                      alt={`album art of ${track.name}`}
+                      width="100%"
+                    />
+                    {track.preview_url && (
+                      <Box
+                        sx={{
+                          fontSize: "2rem",
+                          fontWeight: 800,
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translateY(-50%) translateX(-50%)",
+                          mixBlendMode: "difference",
+                          opacity: 0,
+                          transition: "all 0.5s",
+                          cursor: "pointer",
+                        }}
+                        _hover={{
+                          opacity: 1,
+                        }}
+                      >
+                        <MusicPreview source={track.preview_url} />
+                      </Box>
+                    )}
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "min(150px, 50%)",
+                      flexGrow: 1,
+                      position: "relative",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        height: "100%",
+                        width: "100%",
+                        overflowY: "scroll",
+                      }}
+                    >
+                      <Heading as="h4" size="md">
+                        <NextLink href={`/track/${track.id}`} scroll={false}>
+                          <Link>{track.name}</Link>
+                        </NextLink>
+                      </Heading>
+                      <Text>
+                        {track.artists
+                          .map<React.ReactNode>((artist) => (
+                            <NextLink
+                              key={artist.id}
+                              href={`/artist/${artist.id}`}
+                              scroll={false}
+                            >
+                              <Link>{artist.name}</Link>
+                            </NextLink>
+                          ))
+                          .reduce((prev, curr) => [prev, ", ", curr])}
+                      </Text>
+                    </Box>
+                  </Box>
+                </Flex>
+              );
             })}
-          </UnorderedList>
+          </Flex>
         </Container>
       </Layout>
     </>
