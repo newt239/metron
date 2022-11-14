@@ -1,4 +1,4 @@
-# Spotificater
+# metron
 
 Check your Activity on Spotify
 

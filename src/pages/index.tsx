@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Spotificater</title>
+        <title>metron</title>
         <meta name="description" content="Check your Activity on Spotify." />
         <link rel="icon" href="/favicon.ico" />
       </Head>

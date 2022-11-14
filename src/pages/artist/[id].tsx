@@ -35,9 +35,7 @@ const Artist: NextPage = () => {
   return (
     <>
       <Head>
-        <title>
-          {artist ? artist.name : "アーティスト情報"} - Spotificater
-        </title>
+        <title>{artist ? artist.name : "アーティスト情報"} - metron</title>
       </Head>
       <Layout>
         <Container maxW="1200px" sx={{ py: "5rem" }}>
