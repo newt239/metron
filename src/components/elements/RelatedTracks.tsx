@@ -1,7 +1,7 @@
-import { Box, Flex, Heading, Text, Image } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Image, Link } from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
-import Link from "next/link";
+import NextLink from "next/link";
 import useSWR from "swr";
 
 import type { NextPage } from "next";
@@ -62,12 +62,22 @@ const RelatedTracks: NextPage<{ id: string; artists: string[] }> = ({
               </Box>
               <Box width="min(150px, 50%)" flexGrow={1}>
                 <Heading as="h4" size="md">
-                  <Link href={`/track/${track.id}`} scroll={false}>
-                    {track.name}
-                  </Link>
+                  <NextLink href={`/track/${track.id}`} scroll={false}>
+                    <Link>{track.name}</Link>
+                  </NextLink>
                 </Heading>
                 <Text>
-                  {track.artists.map((artist) => artist.name).join(", ")}
+                  {track.artists
+                    .map<React.ReactNode>((artist) => (
+                      <NextLink
+                        key={artist.id}
+                        href={`/artist/${artist.id}`}
+                        scroll={false}
+                      >
+                        <Link>{artist.name}</Link>
+                      </NextLink>
+                    ))
+                    .reduce((prev, curr) => [prev, ", ", curr])}
                 </Text>
               </Box>
             </Flex>
