@@ -1,5 +1,4 @@
 import { Box, Flex, Heading, Text, Link, Image } from "@chakra-ui/react";
-import MusicPreview from "@components/elements/MusicPreview";
 import axios from "axios";
 import { useAtomValue } from "jotai";
 import NextLink from "next/link";
@@ -7,6 +6,7 @@ import useSWR from "swr";
 
 import type { NextPage } from "next";
 
+import MusicPreview from "@/components/elements/MusicPreview";
 import { tokenAtom } from "@/jotai";
 import { TrackProps } from "@/types";
 
@@ -46,7 +46,13 @@ const ArtistTopTracks: NextPage<{ id: string }> = ({ id }) => {
               gap={3}
               flexGrow={1}
             >
-              <Box width="min(150px, 50%)" flexGrow={1}>
+              <Box
+                sx={{
+                  width: "min(150px, 50%)",
+                  position: "relative",
+                  flexGrow: 1,
+                }}
+              >
                 <Image
                   src={track.album.images[0].url}
                   alt={`album art of ${track.name}`}

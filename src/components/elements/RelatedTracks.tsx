@@ -51,7 +51,13 @@ const RelatedTracks: NextPage<{ id: string; artists: string[] }> = ({
               gap={3}
               flexGrow={1}
             >
-              <Box width="min(150px, 50%)" flexGrow={1}>
+              <Box
+                sx={{
+                  width: "min(150px, 50%)",
+                  position: "relative",
+                  flexGrow: 1,
+                }}
+              >
                 <Image
                   src={track.album.images[0].url}
                   alt={`album art of ${track.name}`}
