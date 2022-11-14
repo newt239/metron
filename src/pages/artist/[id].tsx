@@ -7,6 +7,7 @@ import useSWR from "swr";
 import type { NextPage } from "next";
 
 import ArtistInfo from "@/components/elements/ArtistInfo";
+import ArtistTopTracks from "@/components/elements/ArtistTopTracks";
 import Layout from "@/components/layout";
 import { tokenAtom } from "@/jotai";
 import { ArtistProps } from "@/types";
@@ -38,6 +39,7 @@ const Artist: NextPage = () => {
         ) : artist ? (
           <>
             <ArtistInfo artist={artist} />
+            <ArtistTopTracks id={artist.id} />
           </>
         ) : (
           <div>Loading...</div>

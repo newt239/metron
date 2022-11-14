@@ -7,8 +7,11 @@ import { ArtistProps } from "@/types";
 const ArtistInfo: NextPage<{ artist: ArtistProps }> = ({ artist }) => {
   return (
     <Box>
-      <Flex flexWrap="wrap" sx={{ justifyContent: "center", p: 5, gap: 5 }}>
-        <Box width={{ xs: "100%", sm: "clamp(30%, 250px, 50%)" }}>
+      <Flex
+        flexWrap="wrap"
+        sx={{ justifyContent: "center", p: 5, gap: 5, alignItems: "center" }}
+      >
+        <Box width="clamp(15%, 100px, 30%)">
           <Image
             src={artist.images[0].url}
             alt={artist.name}
