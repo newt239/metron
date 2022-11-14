@@ -36,7 +36,6 @@ const Profile: NextPage = () => {
       </div>
     );
   }
-  if (!profile) return <div>3Loading...</div>;
 
   return (
     <Box p={3}>
