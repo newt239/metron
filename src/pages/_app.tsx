@@ -1,6 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { AnimatePresence, motion } from "framer-motion";
-import App from "next/app";
+import { AnimatePresence } from "framer-motion";
 import { SWRConfig } from "swr";
 
 import type { AppProps } from "next/app";

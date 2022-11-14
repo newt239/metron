@@ -7,14 +7,13 @@ import useSWR from "swr";
 
 import type { NextPage } from "next";
 
-import AudioInfo from "@/components/elements/AudioInfo";
-import RelatedTracks from "@/components/elements/RelatedTracks";
-import TrackInfo from "@/components/elements/TrackInfo";
+import ArtistInfo from "@/components/elements/ArtistInfo";
+import ArtistTopTracks from "@/components/elements/ArtistTopTracks";
 import Layout from "@/components/layout";
 import { tokenAtom } from "@/jotai";
-import { TrackProps } from "@/types";
+import { ArtistProps } from "@/types";
 
-const Track: NextPage = () => {
+const Artist: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const token = useAtomValue(tokenAtom);
@@ -28,30 +27,28 @@ const Track: NextPage = () => {
       .then((res) => {
         return res.data;
       });
-  const { data: track, error } = useSWR<TrackProps, Error>(
-    `https://api.spotify.com/v1/tracks/${id}`,
+  const { data: artist, error } = useSWR<ArtistProps, Error>(
+    `https://api.spotify.com/v1/artists/${id}`,
     fetcher
   );
 
   return (
     <>
       <Head>
-        <title>{track ? track.name : "楽曲情報"} - Spotificater</title>
+        <title>
+          {artist ? artist.name : "アーティスト情報"} - Spotificater
+        </title>
       </Head>
       <Layout>
         <Container maxW="1200px" sx={{ py: "5rem" }}>
           {error ? (
             <div>{error.message}</div>
-          ) : !track ? (
+          ) : !artist ? (
             <div>Loading...</div>
           ) : (
             <>
-              <TrackInfo track={track} />
-              <AudioInfo id={track.id} />
-              <RelatedTracks
-                id={track.id}
-                artists={track.artists.map((artist) => artist.id)}
-              />
+              <ArtistInfo artist={artist} />
+              <ArtistTopTracks id={artist.id} />
             </>
           )}
         </Container>
@@ -60,4 +57,4 @@ const Track: NextPage = () => {
   );
 };
 
-export default Track;
+export default Artist;
