@@ -6,6 +6,7 @@ import useSWR from "swr";
 
 import type { NextPage } from "next";
 
+import MusicPreview from "@/components/elements/MusicPreview";
 import { tokenAtom } from "@/jotai";
 import { TrackProps } from "@/types";
 
@@ -45,7 +46,13 @@ const ArtistTopTracks: NextPage<{ id: string }> = ({ id }) => {
               gap={3}
               flexGrow={1}
             >
-              <Box width="min(150px, 50%)" flexGrow={1}>
+              <Box
+                sx={{
+                  width: "min(150px, 50%)",
+                  position: "relative",
+                  flexGrow: 1,
+                }}
+              >
                 <Image
                   src={track.album.images[0].url}
                   alt={`album art of ${track.name}`}
@@ -54,6 +61,27 @@ const ArtistTopTracks: NextPage<{ id: string }> = ({ id }) => {
                   borderRadius={15}
                   filter="drop-shadow(2px 4px 6px black)"
                 />
+                {track.preview_url && (
+                  <Box
+                    sx={{
+                      fontSize: "2rem",
+                      fontWeight: 800,
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translateY(-50%) translateX(-50%)",
+                      mixBlendMode: "difference",
+                      opacity: 0,
+                      transition: "all 0.5s",
+                      cursor: "pointer",
+                    }}
+                    _hover={{
+                      opacity: 1,
+                    }}
+                  >
+                    <MusicPreview source={track.preview_url} />
+                  </Box>
+                )}
               </Box>
               <Box width="min(150px, 50%)" flexGrow={1}>
                 <Heading as="h4" size="md">
@@ -77,8 +105,8 @@ const ArtistTopTracks: NextPage<{ id: string }> = ({ id }) => {
               </Box>
             </Flex>
           ))}
-          <Flex width="max(30%, 300px)" />
-          <Flex width="max(30%, 300px)" />
+          <Flex width="max(30%, 300px)" flexGrow={1} />
+          <Flex width="max(30%, 300px)" flexGrow={1} />
         </Flex>
       )}
     </div>

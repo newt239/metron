@@ -22,7 +22,7 @@ export interface TrackProps {
   restrictions: Restrictions;
   name: string;
   popularity: number;
-  preview_url: string;
+  preview_url?: string;
   track_number: number;
   type: string;
   uri: string;
