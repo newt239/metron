@@ -14,7 +14,7 @@ const LoginButton: NextPage = () => {
     const url = `https://accounts.spotify.com/authorize?client_id=${
       process.env.NEXT_PUBLIC_API_SPOTIFY_CLIENT_ID
     }&redirect_uri=${encodeURIComponent(
-      process.env.NEXT_PUBLIC_API_SPOTIFY_REDIRECT_URL || ""
+      location.href
     )}&scope=${encodeURIComponent(
       process.env.NEXT_PUBLIC_API_SPOTIFY_SCOPES || ""
     )}&response_type=token&state=xxxxxxxxxxxxxxxx&show_dialog=true`;
