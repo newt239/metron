@@ -1,6 +1,7 @@
 import { Container } from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -33,24 +34,29 @@ const Track: NextPage = () => {
   );
 
   return (
-    <Layout>
-      <Container maxW="1200px" sx={{ py: "5rem" }}>
-        {error ? (
-          <div>{error.message}</div>
-        ) : !track ? (
-          <div>Loading...</div>
-        ) : (
-          <>
-            <TrackInfo track={track} />
-            <AudioInfo id={track.id} />
-            <RelatedTracks
-              id={track.id}
-              artists={track.artists.map((artist) => artist.id)}
-            />
-          </>
-        )}
-      </Container>
-    </Layout>
+    <>
+      <Head>
+        <title>{track ? track.name : "楽曲情報"} - Spotificater</title>
+      </Head>
+      <Layout>
+        <Container maxW="1200px" sx={{ py: "5rem" }}>
+          {error ? (
+            <div>{error.message}</div>
+          ) : !track ? (
+            <div>Loading...</div>
+          ) : (
+            <>
+              <TrackInfo track={track} />
+              <AudioInfo id={track.id} />
+              <RelatedTracks
+                id={track.id}
+                artists={track.artists.map((artist) => artist.id)}
+              />
+            </>
+          )}
+        </Container>
+      </Layout>
+    </>
   );
 };
 

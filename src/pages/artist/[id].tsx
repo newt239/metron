@@ -1,6 +1,7 @@
 import { Container } from "@chakra-ui/react";
 import axios from "axios";
 import { useAtomValue } from "jotai";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -32,20 +33,27 @@ const Artist: NextPage = () => {
   );
 
   return (
-    <Layout>
-      <Container maxW="1200px" sx={{ py: "5rem" }}>
-        {error ? (
-          <div>{error.message}</div>
-        ) : !artist ? (
-          <div>Loading...</div>
-        ) : (
-          <>
-            <ArtistInfo artist={artist} />
-            <ArtistTopTracks id={artist.id} />
-          </>
-        )}
-      </Container>
-    </Layout>
+    <>
+      <Head>
+        <title>
+          {artist ? artist.name : "アーティスト情報"} - Spotificater
+        </title>
+      </Head>
+      <Layout>
+        <Container maxW="1200px" sx={{ py: "5rem" }}>
+          {error ? (
+            <div>{error.message}</div>
+          ) : !artist ? (
+            <div>Loading...</div>
+          ) : (
+            <>
+              <ArtistInfo artist={artist} />
+              <ArtistTopTracks id={artist.id} />
+            </>
+          )}
+        </Container>
+      </Layout>
+    </>
   );
 };
 

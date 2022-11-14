@@ -1,4 +1,5 @@
 import { Container } from "@chakra-ui/react";
+import Head from "next/head";
 
 import type { NextPage } from "next";
 
@@ -8,12 +9,17 @@ import Layout from "@/components/layout";
 
 const Me: NextPage = () => {
   return (
-    <Layout>
-      <Container maxW="1200px" sx={{ py: "5rem" }}>
-        <Profile />
-        <UserTopTracks />
-      </Container>
-    </Layout>
+    <>
+      <Head>
+        <title>マイトップトラック - Spotificater</title>
+      </Head>
+      <Layout>
+        <Container maxW="1200px" sx={{ py: "5rem" }}>
+          <Profile />
+          <UserTopTracks />
+        </Container>
+      </Layout>
+    </>
   );
 };
 
