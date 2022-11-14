@@ -37,7 +37,9 @@ const Track: NextPage = () => {
       <Container maxW="1200px" sx={{ py: "5rem" }}>
         {error ? (
           <div>{error.message}</div>
-        ) : track ? (
+        ) : !track ? (
+          <div>Loading...</div>
+        ) : (
           <>
             <TrackInfo track={track} />
             <AudioInfo id={track.id} />
@@ -46,8 +48,6 @@ const Track: NextPage = () => {
               artists={track.artists.map((artist) => artist.id)}
             />
           </>
-        ) : (
-          <div>Loading...</div>
         )}
       </Container>
     </Layout>

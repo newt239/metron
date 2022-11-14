@@ -77,6 +77,8 @@ const ArtistTopTracks: NextPage<{ id: string }> = ({ id }) => {
               </Box>
             </Flex>
           ))}
+          <Flex width="max(30%, 300px)" />
+          <Flex width="max(30%, 300px)" />
         </Flex>
       )}
     </div>

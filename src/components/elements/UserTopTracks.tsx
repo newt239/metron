@@ -29,7 +29,7 @@ const UserTopTracks: NextPage = () => {
   );
 
   if (error) return <div>{error.message}</div>;
-  if (!topTracks) return <div>5Loading...</div>;
+  if (!topTracks) return <div>Loading...</div>;
 
   return (
     <div>
@@ -75,8 +75,8 @@ const UserTopTracks: NextPage = () => {
             </Box>
           </Flex>
         ))}
-        {topTracks.length % 3 >= 1 && <Flex width="max(30vw, 300px)" />}
-        {topTracks.length % 3 >= 2 && <Flex width="max(30vw, 300px)" />}
+        <Flex width="max(30%, 300px)" />
+        <Flex width="max(30%, 300px)" />
       </Flex>
     </div>
   );

@@ -36,13 +36,13 @@ const Artist: NextPage = () => {
       <Container maxW="1200px" sx={{ py: "5rem" }}>
         {error ? (
           <div>{error.message}</div>
-        ) : artist ? (
+        ) : !artist ? (
+          <div>Loading...</div>
+        ) : (
           <>
             <ArtistInfo artist={artist} />
             <ArtistTopTracks id={artist.id} />
           </>
-        ) : (
-          <div>Loading...</div>
         )}
       </Container>
     </Layout>
