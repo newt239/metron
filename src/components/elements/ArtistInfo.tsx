@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, Image } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image } from "@chakra-ui/react";
 
 import type { NextPage } from "next";
 
