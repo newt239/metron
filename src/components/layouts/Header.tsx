@@ -19,7 +19,7 @@ const Header: NextPage = () => {
       <Link href="/" scroll={false}>
         <Container maxW={1200}>
           <Heading as="h1" cursor="pointer">
-            Spotificater
+            metron
           </Heading>
         </Container>
       </Link>

@@ -11,7 +11,7 @@ const Me: NextPage = () => {
   return (
     <>
       <Head>
-        <title>マイトップトラック - Spotificater</title>
+        <title>マイトップトラック - metron</title>
       </Head>
       <Layout>
         <Container maxW="1200px" sx={{ py: "5rem" }}>
