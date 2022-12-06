@@ -36,7 +36,7 @@ const Track: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{track ? track.name : "楽曲情報"} - Spotificater</title>
+        <title>{track ? track.name : "楽曲情報"} - metron</title>
       </Head>
       <Layout>
         <Container maxW="1200px" sx={{ py: "5rem" }}>
