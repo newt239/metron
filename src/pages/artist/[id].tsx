@@ -5,15 +5,15 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-import type { NextPage } from "next";
+import type { NextPageWithLayout } from "next";
 
 import ArtistInfo from "@/components/elements/ArtistInfo";
 import ArtistTopTracks from "@/components/elements/ArtistTopTracks";
-import Layout from "@/components/layout";
+import Layout from "@/components/layout/Layout";
 import { tokenAtom } from "@/jotai";
 import { ArtistProps } from "@/types";
 
-const Artist: NextPage = () => {
+const Artist: NextPageWithLayout = () => {
   const router = useRouter();
   const { id } = router.query;
   const token = useAtomValue(tokenAtom);
@@ -37,22 +37,20 @@ const Artist: NextPage = () => {
       <Head>
         <title>{artist ? artist.name : "アーティスト情報"} - metron</title>
       </Head>
-      <Layout>
-        <Container maxW="1200px" sx={{ py: "5rem" }}>
-          {error ? (
-            <div>{error.message}</div>
-          ) : !artist ? (
-            <div>Loading...</div>
-          ) : (
-            <>
-              <ArtistInfo artist={artist} />
-              <ArtistTopTracks id={artist.id} />
-            </>
-          )}
-        </Container>
-      </Layout>
+      <Container maxW="1200px">
+        {error ? (
+          <div>{error.message}</div>
+        ) : !artist ? (
+          <div>Loading...</div>
+        ) : (
+          <>
+            <ArtistInfo artist={artist} />
+            <ArtistTopTracks id={artist.id} />
+          </>
+        )}
+      </Container>
     </>
   );
 };
-
+Artist.getLayout = (page) => <Layout>{page}</Layout>;
 export default Artist;

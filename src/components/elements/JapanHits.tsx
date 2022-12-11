@@ -1,6 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import axios from "axios";
 import Image from "next/image";
+import NextLink from "next/link";
 import useSWR from "swr";
 
 import type { NextPage } from "next";
@@ -19,18 +20,21 @@ const JapanHits: NextPage = () => {
   );
 
   return (
-    <Box opacity={0.5} position="fixed" top={0} left="auto" right={0}>
+    <Box>
       {japanHits && (
-        <Flex flexWrap="wrap" p={3} gap={3} justifyContent="center">
+        <Flex flexWrap="wrap" p={3} gap={3} justifyContent="space-around">
           {japanHits.map((track) => {
             return (
               <Box key={track.id}>
-                <Image
-                  src={track.album.images[0].url}
-                  alt={track.name}
-                  width={150}
-                  height={150}
-                />
+                <NextLink href={`/track/${track.id}`} scroll={false}>
+                  <Image
+                    src={track.album.images[0].url}
+                    alt={track.name}
+                    width={150}
+                    height={150}
+                    style={{ borderRadius: 5, cursor: "pointer" }}
+                  />
+                </NextLink>
               </Box>
             );
           })}

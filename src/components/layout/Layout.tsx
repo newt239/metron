@@ -1,8 +1,9 @@
 import { ReactElement } from "react";
 
+import { Box, Container } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-import Header from "./layouts/Header";
+import Header from "../ui/Header";
 
 type LayoutProps = Required<{
   readonly children: ReactElement;
@@ -16,7 +17,7 @@ const Layout = ({ children }: LayoutProps) => (
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {children}
+      <Container maxW={1200}>{children}</Container>
     </motion.div>
   </>
 );
