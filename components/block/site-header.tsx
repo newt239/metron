@@ -1,10 +1,10 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { siteConfig } from "@/config/site"
-import { buttonVariants } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
-import { MainNav } from "@/components/main-nav"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { Icons } from "@/components/block/icons";
+import { MainNav } from "@/components/block/main-nav";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { buttonVariants } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
 
 export function SiteHeader() {
   return (
@@ -15,8 +15,8 @@ export function SiteHeader() {
           <nav className="flex items-center space-x-1">
             <Link
               href={siteConfig.links.github}
-              target="_blank"
               rel="noreferrer"
+              target="_blank"
             >
               <div
                 className={buttonVariants({
@@ -30,8 +30,8 @@ export function SiteHeader() {
             </Link>
             <Link
               href={siteConfig.links.twitter}
-              target="_blank"
               rel="noreferrer"
+              target="_blank"
             >
               <div
                 className={buttonVariants({
@@ -48,5 +48,5 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }
