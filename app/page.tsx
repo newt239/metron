@@ -3,7 +3,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 
-const IndexPage: React.FC = async () => {
+export default function IndexPage() {
   const url = `https://accounts.spotify.com/authorize?client_id=${
     process.env.NEXT_PUBLIC_API_SPOTIFY_CLIENT_ID
   }&redirect_uri=${encodeURIComponent(
@@ -26,6 +26,4 @@ const IndexPage: React.FC = async () => {
       </div>
     </section>
   );
-};
-
-export default IndexPage;
+}
