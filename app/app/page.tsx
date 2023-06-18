@@ -4,7 +4,7 @@ import { spotifyClient } from "@/lib/spotify";
 import { cn } from "@/lib/utils";
 import { PlaybackState, TrackProps } from "@/types/spotify";
 
-const AppPage: React.FC = async () => {
+export default async function AppPage() {
   const playbackState = await spotifyClient<PlaybackState>("me/player");
   const myTopTracks = await spotifyClient<{ items: TrackProps[] }>(
     "me/top/tracks"
@@ -77,6 +77,4 @@ const AppPage: React.FC = async () => {
       </div>
     </div>
   );
-};
-
-export default AppPage;
+}

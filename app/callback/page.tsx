@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 import { cn } from "@/lib/utils";
 
-const CallbackPage: React.FC = () => {
+export default function CallbackPage() {
   const router = useRouter();
 
   useEffect(() => {
@@ -27,6 +27,4 @@ const CallbackPage: React.FC = () => {
       <div className={cn("text-xl")}>Loading...</div>
     </div>
   );
-};
-
-export default CallbackPage;
+}

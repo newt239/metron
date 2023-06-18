@@ -10,7 +10,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const AppLayout: React.FC<Props> = async ({ children }) => {
+export default async function AppLayout({ children }: Props) {
   const profile = await spotifyClient<ProfileProps>("me");
 
   if (!profile) return null;
@@ -42,6 +42,4 @@ const AppLayout: React.FC<Props> = async ({ children }) => {
       </div>
     </div>
   );
-};
-
-export default AppLayout;
+}
