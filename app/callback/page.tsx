@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+import { cn } from "@/lib/utils";
+
 const CallbackPage: React.FC = () => {
   const router = useRouter();
 
@@ -13,7 +15,18 @@ const CallbackPage: React.FC = () => {
       router.push("/app");
     }
   }, []);
-  return <div></div>;
+  return (
+    <div
+      className={cn(
+        "h-[calc(100vh-4rem)]",
+        "flex",
+        "justify-center",
+        "items-center"
+      )}
+    >
+      <div className={cn("text-xl")}>Loading...</div>
+    </div>
+  );
 };
 
 export default CallbackPage;

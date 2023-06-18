@@ -1,8 +1,8 @@
-import { cookies } from "next/headers";
 import Link from "next/link";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { spotifyClient } from "@/lib/spotify";
 import { cn } from "@/lib/utils";
 import { ProfileProps } from "@/types/spotify";
 
@@ -11,40 +11,35 @@ type Props = {
 };
 
 const AppLayout: React.FC<Props> = async ({ children }) => {
-  const tokenCookie = cookies().get("spotify_token");
+  const profile = await spotifyClient<ProfileProps>("me");
 
-  if (!tokenCookie) return null;
-
-  const profile: ProfileProps = await fetch("https://api.spotify.com/v1/me", {
-    headers: {
-      Authorization: `Bearer ${tokenCookie.value}`,
-    },
-  }).then((res) => res.json());
+  if (!profile) return null;
 
   return (
     <div className={cn("container", "flex")}>
       <aside
         className={cn(
           "w-1/4",
-          "h-[calc(100vh-4rem)]",
+          "h-[calc(100vh-5rem)]",
           "sticky",
-          "top-14",
-          "p-3",
+          "top-0",
           "overflow-auto"
         )}
       >
-        <div>
+        <div className={cn("relative", "top-3")}>
           <div className={cn("flex", "items-center")}>
             <Avatar>
               <AvatarImage src={profile.images[0].url} />
             </Avatar>
             <Button asChild className={cn("text-md")} variant="link">
-              <Link href="/app/profile">{profile.display_name}</Link>
+              <Link href="/app">{profile.display_name}</Link>
             </Button>
           </div>
         </div>
       </aside>
-      <div className={cn("w-3/4", "p-3")}>{children}</div>
+      <div className={cn("w-3/4")}>
+        <div className={cn("p-3")}>{children}</div>
+      </div>
     </div>
   );
 };
