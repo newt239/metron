@@ -15,6 +15,7 @@ export default function CallbackPage() {
       router.push("/app");
     }
   }, []);
+
   return (
     <div
       className={cn(
