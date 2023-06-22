@@ -21,7 +21,7 @@ export default async function IndexPage() {
       </div>
       <div className="flex gap-4">
         <Link className={buttonVariants()} href={url}>
-          Sign In
+          Spotifyでログイン
         </Link>
       </div>
     </section>

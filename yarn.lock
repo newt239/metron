@@ -1114,6 +1114,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.11.8":
+  version: 1.11.8
+  resolution: "dayjs@npm:1.11.8"
+  checksum: 2c7ef83e7ff1b41721bd478f157bbab93d31cbd9e832f4a75b3baf13306ac8aa199505ed083bcc922d19de4f6d2cc6d651bb0ee524fe9b301d50ba3ed8f8a0f7
+  languageName: node
+  linkType: hard
+
 "debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
@@ -2652,6 +2659,7 @@ __metadata:
     autoprefixer: "npm:^10.4.14"
     class-variance-authority: "npm:^0.4.0"
     clsx: "npm:^1.2.1"
+    dayjs: "npm:^1.11.8"
     eslint: "npm:^8.41.0"
     eslint-config-next: "npm:13.0.0"
     eslint-config-prettier: "npm:^8.8.0"

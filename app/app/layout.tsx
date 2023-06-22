@@ -6,6 +6,8 @@ import { spotifyClient } from "@/lib/spotify";
 import { cn } from "@/lib/utils";
 import { ProfileProps } from "@/types/spotify";
 
+export const revalidate = 0;
+
 type Props = {
   children: React.ReactNode;
 };
